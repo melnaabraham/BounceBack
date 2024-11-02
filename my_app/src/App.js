@@ -4,23 +4,16 @@ import Home from './components/Home';
 import Industry from './components/Industry';
 import Skills from './components/Skills';
 import Plan from './components/Plan';
+import './App.css'; // Ensure you have a CSS file for overall app styles
 
 function App() {
   return (
     <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/industry">Industry</Link>
-          </li>
-          <li>
-            <Link to="/skills">Skills Development</Link>
-          </li>
-        </ul>
-      </nav>
+      <div className="home-button">
+        <Link to="/">
+          <button>Home</button>
+        </Link>
+      </div>
 
       <Routes>
         <Route path="/" element={<Home />} />
