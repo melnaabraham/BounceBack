@@ -10,6 +10,7 @@ const Industry = () => {
 
   return (
     <div>
+      <p>What's goody</p>
       <h2>What industry are you in?</h2>
       <input 
         type="text" 
