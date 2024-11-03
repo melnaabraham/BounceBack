@@ -162,7 +162,7 @@ const Industry = () => {
         };
 
         // Call the backend API to get questions based on career info
-        const response = await axios.post('http://127.0.0.1:8000/get_questions', JSON.stringify(careerInfo), { headers: { 'Content-Type': 'application/json' }});
+        const response = await axios.post('http://localhost:8000/get_questions', JSON.stringify(careerInfo), { headers: { 'Content-Type': 'application/json' }});
         // Store questions in local storage or pass them directly to the next screen
         localStorage.setItem('careerInfo', JSON.stringify(careerInfo));
         localStorage.setItem('questions', JSON.stringify(response.data.questions));

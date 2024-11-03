@@ -47,7 +47,7 @@ const Skills = () => {
 
       // Send responses to the backend
       const response = await axios.post(
-         'http://127.0.0.1:8000/generate_plan',
+         'http://localhost:8000/generate_plan',
          JSON.stringify(planData),
          { headers: { 'Content-Type': 'application/json' }}
       );
