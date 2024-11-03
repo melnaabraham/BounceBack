@@ -1,0 +1,19 @@
+#results {
+    max-width: 80%;               /* Keeps it centered and consistent with the form */
+    margin: 20px auto;              /* Center alignment with top and bottom spacing */
+    padding: 25px;                  /* Extra padding for comfortable reading */
+    background-color: #fff;         /* White background for good contrast */
+    border-radius: 8px;             /* Rounded corners for a polished look */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border: 1px solid #ddd;         /* Light border for definition */
+    text-align: justify;            /* Justified text for a clean block look */
+    line-height: 1.8;               /* Increased line height for readability */
+    color: #333;                    /* Dark text for readability */
+    overflow-wrap: break-word;      /* Ensures long words wrap within the container */
+}
+
+#results p {
+    font-size: 1em;                 /* Base font size for easy reading */
+    margin: 0;                      /* Reset margin to avoid extra spacing */
+    white-space: pre-wrap;          /* Maintains line breaks and whitespace */
+}

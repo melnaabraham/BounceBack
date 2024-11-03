@@ -1,62 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Skills.css';
 
 const Skills = () => {
   const navigate = useNavigate();
+  const [questions, setQuestions] = useState([]);
+  const [responses, setResponses] = useState({});
 
-  // State variables for the text fields
-  const [skill1, setSkill1] = useState('');
-  const [skill2, setSkill2] = useState('');
-  const [skill3, setSkill3] = useState('');
-  const [skill4, setSkill4] = useState('');
-  const [skill5, setSkill5] = useState('');
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        // Retrieve career info from local storage
+        // const careerInfo = JSON.parse(localStorage.getItem('careerInfo'));
+        const questions = JSON.parse(localStorage.getItem('questions'));
+        // Fetch questions from the backend
+        // const response = await axios.post('/get_questions', careerInfo);
+        setQuestions(questions);
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+        alert('There was an error loading the questions. Please try again.');
+      }
+    };
 
-  const handleSubmit = (e) => {
+    fetchQuestions();
+  }, []);
+
+  const handleResponseChange = (questionIndex, value) => {
+    setResponses(prev => ({
+      ...prev,
+      [questionIndex]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Process the data
-    console.log({
-      skill1,
-      skill2,
-      skill3,
-      skill4,
-      skill5,
-    });
+    try {
+      const careerInfo = JSON.parse(localStorage.getItem('careerInfo'));
+      
+      const planData = {
+        career_info: careerInfo, 
+        responses: responses
+      };
 
-    // Navigate to the Plan page
-    navigate('/plan');
+      console.log(planData);
+
+      // Send responses to the backend
+      const response = await axios.post(
+         'http://127.0.0.1:8000/generate_plan',
+         JSON.stringify(planData),
+         { headers: { 'Content-Type': 'application/json' }}
+      );
+      
+      // Store the generated plan
+      localStorage.setItem('careerPlan', JSON.stringify(response.data.plan));
+
+      // Navigate to the Plan page
+      navigate('/plan');
+    } catch (error) {
+      console.error('Error generating plan:', error);
+      alert('There was an error generating your plan. Please try again.');
+    }
   };
 
   return (
     <div>
-      <h1>Skills Development</h1>
+      <h1>Skills Assessment</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>1) What skills do you want to develop?</label>
-          <input type="text" value={skill1} onChange={(e) => setSkill1(e.target.value)} required />
-        </div>
-
-        <div>
-          <label>2) What resources or support do you need to develop these skills?</label>
-          <input type="text" value={skill2} onChange={(e) => setSkill2(e.target.value)} required />
-        </div>
-
-        <div>
-          <label>3) Are there any specific projects you would like to work on to enhance these skills?</label>
-          <input type="text" value={skill3} onChange={(e) => setSkill3(e.target.value)} required />
-        </div>
-
-        <div>
-          <label>4) What is your timeline for achieving these skill development goals?</label>
-          <input type="text" value={skill4} onChange={(e) => setSkill4(e.target.value)} required />
-        </div>
-
-        <div>
-          <label>5) Is there anything else you would like to share regarding your skills development?</label>
-          <input type="text" value={skill5} onChange={(e) => setSkill5(e.target.value)} />
-        </div>
-
-        <button type="submit">Next</button>
+        {questions.map((question, index) => (
+          <div key={index}>
+            <label>{question}</label>
+            <input 
+              type="text" 
+              value={responses[index] || ''} 
+              onChange={(e) => handleResponseChange(index, e.target.value)} 
+              required 
+            />
+          </div>
+        ))}
+        <button type="submit">Generate Plan</button>
       </form>
     </div>
   );
