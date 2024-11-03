@@ -224,7 +224,12 @@ const Industry = () => {
           </select>
         </div>
 
-        <button type="button" onClick={handleSubmit}>Next</button>
+        <div className="development-area">
+          <h2>Select a Development Area</h2>
+          <button type="button" onClick={handleSubmit}>Skills Development</button>
+          <button type="button" onClick={handleSubmit}>Career Development</button>
+          <button type="button" onClick={handleSubmit}>Professional Mentorship</button>
+        </div>
       </form>
     </div>
   );

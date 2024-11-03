@@ -1,5 +1,9 @@
 body {
   margin: 0; /* Reset default margin */
+  background-image: url(steampunk.jpg);
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center; /* Centers the image */
 }
 
 .home-button {

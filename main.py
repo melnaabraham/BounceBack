@@ -16,7 +16,7 @@ app.add_middleware(
 )
 
 # Initialize the LLM (Language Model)
-MISTRAL_API_KEY = 'API Key'
+MISTRAL_API_KEY = 'API-KEY'
 
 llm = ChatMistralAI(
     model="mistral-large-latest",
